@@ -42,8 +42,7 @@ public class CountriesController {
 
     @RequestMapping(method=RequestMethod.POST,value="/countries")
     public String addCountry(@RequestBody Country country) {
-        service.addCountry(country);
-        return "New country added";
+        return  service.addCountry(country);
     }
 
 

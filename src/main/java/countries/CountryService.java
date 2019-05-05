@@ -1,52 +1,47 @@
 package countries;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
 public class CountryService {
 
 
-    ArrayList<Country> countryList = new ArrayList<>(Arrays.asList(
-            new Country("India","NewDelhi","Asia"),
-            new Country("Japan","Tokyo","Asia"),
-            new Country("Israel","Jerusalem","Asia"),
-            new Country("Russia","Moscow","Asia"),
-            new Country("France","Paris","Europe")
-    ));
-
-
+    @Autowired
+    private CountriesRepository repository;
 
 
     public List<Country> getAllCountries() {
-        return countryList;
+
+        return repository.findAll();
+
     }
 
     public Country getCountryByName(String name) {
-        return countryList.stream().filter(t -> t.getName().equals(name)).findFirst().get();
+
+        return repository.findCountryByNameEquals(name);
+
     }
 
     public List<Country> getCountryByContinent(String continent) {
-        ArrayList<Country> filteredList = new ArrayList<>();
 
-       countryList.stream().filter(t -> t.getContinent().equals(continent)).collect(Collectors.toCollection(() -> filteredList));
-       return filteredList;
-
+        return repository.findCountryByContinentEquals(continent);
 
     }
 
     public Country getCountryByCapital(String capital) {
-        return countryList.stream().filter(t -> t.getCapital().equals(capital)).findFirst().get();
+
+        return repository.findCountryByCapitalEquals(capital);
     }
 
 
-    public void addCountry(Country country) {
-       countryList.add(country);
+    public String addCountry(Country country) {
+
+        repository.save(country);
+        return "Added Country successfully";
     }
 
 
