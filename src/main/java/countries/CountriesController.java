@@ -30,7 +30,8 @@ public class CountriesController {
     @RequestMapping("/countries/continent")
     @ResponseBody
     public List<Country> getCountriesByContinent(@RequestParam String continent) {
-        return service.getCountryByContinent(continent);
+        List<Country> list = service.getCountryByContinent(continent);
+        return list;
     }
 
     //http://localhost:8080/countries/NewDelhi
@@ -41,8 +42,8 @@ public class CountriesController {
     }
 
     @RequestMapping(method=RequestMethod.POST,value="/countries")
-    public String addCountry(@RequestBody Country country) {
-        return  service.addCountry(country);
+    public void addCountry(@RequestBody Country country) {
+        service.addCountry(country);
     }
 
 
