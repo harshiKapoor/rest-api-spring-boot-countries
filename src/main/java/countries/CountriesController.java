@@ -9,7 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.ws.rs.Produces;
 import java.util.List;
 
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 public class CountriesController {
 
